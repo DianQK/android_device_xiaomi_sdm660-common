@@ -420,12 +420,6 @@ on property:sys.boot_completed=1
     chown media audio /sys/kernel/wdsp0/boot
     chown media audio /sys/kernel/wcd_cpe0/fw_name
 
-on property:persist.vendor.radio.atfwd.start=false
-    stop vendor.atfwd
-
-on property:vendor.radio.atfwd.start=false
-    stop vendor.atfwd
-
 # corefile limit
 #on property:persist.debug.trace=1
 #    mkdir /data/core 0777 root root
@@ -518,11 +512,6 @@ on property:sys.boot_completed=1
 on property:ro.vendor.ril.mbn_copy_completed=1
     write /data/vendor/radio/copy_complete 1
 
-service vendor.atfwd /vendor/bin/ATFWD-daemon
-    class late_start
-    user system
-    group system radio
-
 #on property:ro.data.large_tcp_window_size=true
 #    # Adjust socket buffer to enlarge TCP receive window for high bandwidth (e.g. DO-RevB)
 #    write /proc/sys/net/ipv4/tcp_adv_win_scale  2
@@ -547,18 +536,6 @@ service charger /system/bin/charger
     group system graphics input
     capabilities SYS_BOOT
     seclabel u:r:charger:s0
-
-service vendor.msm_irqbalance /vendor/bin/msm_irqbalance -f /system/vendor/etc/msm_irqbalance.conf
-    class core
-    user root
-    group root
-    disabled
-
-service vendor.msm_irqbl_sdm630 /vendor/bin/msm_irqbalance -f /system/vendor/etc/msm_irqbalance_sdm630.conf
-    class core
-    user root
-    group root
-    disabled
 
 on charger
     setprop persist.sys.usb.config mass_storage
