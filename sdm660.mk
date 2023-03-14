@@ -366,8 +366,7 @@ PRODUCT_COPY_FILES += \
 
 # QMI
 PRODUCT_PACKAGES += \
-    libjson \
-    libjson.vendor
+    libjson
 
 # RenderScript HAL
 PRODUCT_PACKAGES += \
